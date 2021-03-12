@@ -36,16 +36,6 @@ After the checkout, check the "How to use" page which lists the detailed steps f
 
 On-Premise Installation – Microgateway on-premise installation can be downloaded and installed from Software AG empower. link - https://empower.softwareag.com/
 
-Links to Tech-Community Articles
--------------------------------------------
-
-https://tech.forums.softwareag.com/t/running-microgateway-10-5-in-a-windows-container/237522
-https://tech.forums.softwareag.com/t/getting-started-with-webmethods-microgateway-dockerhub-image/237332
-https://tech.forums.softwareag.com/t/microgateway-instance-based-provisioning/239201
-https://tech.forums.softwareag.com/t/microgateway-configuration/239202
-https://tech.forums.softwareag.com/t/managing-microgateways/239203
-https://tech.forums.softwareag.com/t/microgateway-integration-with-service-registry-and-api-portal/237259
-
 Policies in Microgateway
 -------------------------
 
@@ -79,3 +69,18 @@ Policies supported are
 * API Scopes - A scope represents a logical grouping of REST resources, methods, or both in an API. An API can have a set of declared scopes. API scopes are configured in API Gateway and provisioned to Microgateway. Only the following policies are supported for API Scopes in Microgateway.
 	* Identify and Access policy: Identify and Authorize Application
 	* Traffic Monitoring policies: Log Invocation, Throttling Traffic optimization
+
+References
+-------------------------------------------
+
+https://tech.forums.softwareag.com/t/running-microgateway-10-5-in-a-windows-container/237522
+https://tech.forums.softwareag.com/t/getting-started-with-webmethods-microgateway-dockerhub-image/237332
+https://tech.forums.softwareag.com/t/microgateway-instance-based-provisioning/239201
+https://tech.forums.softwareag.com/t/microgateway-configuration/239202
+https://tech.forums.softwareag.com/t/managing-microgateways/239203
+https://tech.forums.softwareag.com/t/microgateway-integration-with-service-registry-and-api-portal/237259
+
+-------------------------------------------
+These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
+
+Contact us at [TECHcommunity](mailto:technologycommunity@softwareag.com?subject=Github/SoftwareAG) if you have any questions.
