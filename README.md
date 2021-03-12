@@ -1,18 +1,18 @@
 webMethods Microgateway
 ========================
 
-webMethods Microgateway is a lightweight distributed proxy that gives control over a microservices landscape by enforcing policies which perform authentication, traffic monitoring, and traffic management near the service end points. The lightweight nature of a Microgateway allows a flexible deployment to avoid gaps or bottlenecks in the policy enforcement. Microgateway enables microservices to communicate with each other directly without the need for API Gateway. This eases the traffic overload on API Gateway and reduces the latency in the communication round trip. The required protection policies can be enforced on the Microgateway to establish a secure communication channel between the microservices. 
+webMethods Microgateway is a lightweight distributed proxy that gives control over a microservices landscape by enforcing policies which perform authentication, traffic monitoring, and traffic management near the service end points. The lightweight nature of the Microgateway allows a flexible deployment to avoid gaps or bottlenecks in the policy enforcement. Microgateway enables microservices to communicate with each other directly without the need for API Gateway. This eases the traffic overload on API Gateway and reduces the latency in the communication round trip. The required protection policies can be enforced on the Microgateway to establish a secure communication channel between the microservices. 
 
 ![](attachments/Microgateway_Int0.png)
 
-The above diagram shows microservices implementing the booking related API of the imaginary company NodeTours. The shown microservice mesh or microservice landscape consists of three services. Consumer applications access the APIs via a central API Gateway that performs the enforcement of policies. The problem here is that each microservice exposes an endpoint where no policy enforcement is done.  Moreover, considering the microservices are interacting with each other all this traffic needs to be routed through the single API Gateway. This leads to additional network latency and the API Gateway potentially becomes a bottleneck. The diagram below shows a deployment where the API Gateway is replaced with a set of Microgateways that are added to the microservices itself. Such a "sidecar" deployment does not leave any gaps and avoids bottlenecks in the policy enforcement. 
+The above diagram shows microservices implementing the booking related API of the imaginary company NodeTours. The shown microservice mesh or microservice landscape consists of three services. Consumer applications access the APIs via a central API Gateway that performs the enforcement of policies. The problem here is that each microservice exposes an endpoint where no policy enforcement is done.  Moreover, considering the microservices are interacting with each other all this traffic needs to be routed through the single API Gateway. This leads to additional network latency and the API Gateway potentially becomes a bottleneck. The diagram below shows a deployment where the API Gateway is replaced with a set of Microgateways that are added to the microservices themselves. Such a "sidecar" deployment does not leave any gaps and avoids bottlenecks in the policy enforcement. 
 
 ![](attachments/Microgateway_Int0.png)
 
 API Gateway Integration
 ----------------------------
 
-The Microgateway’ s responsibility is focused on a single microservice or a small number of microservices. To manage a microservice landscape an API Gateway is needed. It offers the UI for configuring policies and for system configurations. Moreover, it is responsible for monitoring the traffic across the microservice landscape. The following figures shows how Microgateways are interacting with an API Gateway.
+The Microgateway’s responsibility is focused on a single microservice or a small number of microservices. To manage a microservice landscape an API Gateway is needed. It offers the UI for configuring policies and for system configurations. Moreover, it is responsible for monitoring the traffic across the microservice landscape. The following figures shows how Microgateways are interacting with an API Gateway.
 
 ![](attachments/Microgateway_APIGWInt.png)
 
