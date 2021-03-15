@@ -7,7 +7,7 @@ webMethods Microgateway is a lightweight distributed proxy that gives control ov
 
 The above diagram shows microservices implementing the booking related API of the imaginary company NodeTours. The shown microservice mesh or microservice landscape consists of three services. Consumer applications access the APIs via a central API Gateway that performs the enforcement of policies. The problem here is that each microservice exposes an endpoint where no policy enforcement is done.  Moreover, considering the microservices are interacting with each other all this traffic needs to be routed through the single API Gateway. This leads to additional network latency and the API Gateway potentially becomes a bottleneck. The diagram below shows a deployment where the API Gateway is replaced with a set of Microgateways that are added to the microservices themselves. Such a "sidecar" deployment does not leave any gaps and avoids bottlenecks in the policy enforcement. 
 
-![](attachments/Microgateway_Int0.png)
+![](attachments/Microgateway_Int.png)
 
 API Gateway Integration
 ----------------------------
