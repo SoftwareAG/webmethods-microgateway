@@ -39,7 +39,7 @@ On-Premise Installation – Microgateway on-premise installation can be download
 Policies in Microgateway
 -------------------------
 
-Microgateway supports policies you can configure in the API Gateway and provision to Microgateway:
+Microgateway supports a comprehensive collection of policies you can configure in the API Gateway and provision to Microgateway:
 * Transport: Microgateway supports Enable HTTP/HTTPs policy in transport. 
 * Identify and Access: Policies supported by Microgateway for Identify and Access are: 
 	* Authorize user - Microgateway authorizes users against copy of IntegrationServer\instances\default\config\users.cnf which is created during Microgateway start-up. This policy should be used together with an authentication policy (for example, Require HTTP Basic Authentication). Authorize user policy validates the incoming request against list of users, groups or access profiles. 
