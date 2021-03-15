@@ -39,27 +39,26 @@ On-Premise Installation – Microgateway on-premise installation can be download
 Policies in Microgateway
 -------------------------
 
-Microgateway supports subset of policies supported by API Gateway. Policies are configured in API Gateway and provisioned to Microgateway. Microgateway neglects the policies that are not supported.
-* Transport: Microgateway supports only Enable HTTP/HTTPs policy in transport. 
-* Identify and Access: Microgateway supports the REST APIs and do not support the SOAP and OData APIs. Therefore, policies related to SOAP and OData APIs are not supported. Policies supported by Microgateway for Identify and Access are 
+Microgateway supports policies you can configure in the API Gateway and provision to Microgateway:
+* Transport: Microgateway supports Enable HTTP/HTTPs policy in transport. 
+* Identify and Access: Policies supported by Microgateway for Identify and Access are: 
 	* Authorize user - Microgateway authorizes users against copy of IntegrationServer\instances\default\config\users.cnf which is created during Microgateway start-up. This policy should be used together with an authentication policy (for example, Require HTTP Basic Authentication). Authorize user policy validates the incoming request against list of users, groups or access profiles. 
 	* Identify and Authorize application - This policy allows client applications to access APIs depending on the identification type specified. Identification types supported are API Key, Hostname, HTTP Basic Authentication, IP address range, OAuth2 token, JWT, OpenID connect, SSL Certificate and Payload element.
 	Microgateway is created using the required applications pulled during start-up. Any changes to applications are synched using polling mechanism.  To avoid the consumption of a considerable amount of memory and CPU, the API Provider provides certain configurations for polling the applications. Ex: list of application ids, registered applications of the APIs in Microgateway or all global applications.
-* Request Processing: Policies supported in request processing are,
-	* Request transformation - Microgateway request transformation supports subset of policies supported by API Gateway. For example, advance transformation, JMS properties etc are not supported. Additional details can be found in product documentation https://documentation.softwareag.com/webmethods/microgateway/yam10-5/10-5_Microgateway_webhelp/index.html#page/microgateway-webhelp%2Fre-policy_requestproc_transform.html%23
+* Request Processing: Policies supported in request processing are:
+	* Request transformation - Allows to configure several transformations on the request messages from clients into a format required by the native API before it is submitted to the native API.
 	* Validate API specification - This policy validates incoming request against schema, query parameters, path parameters, content-types, and HTTP headers.
 	* Data Masking - Data masking is a technique of masking sensitive fields. Data masking is applied at application level. It mandates Identify and Access policy to be configured to identify an application. If no application is specified masking is applied on all requests. Masking criteria can be applied to XPath, JSONPath, and Regex expressions based on the content-type. This policy can also be applied on API scopes. 
-* Routing: Microgateway supports routing policies as below,
+* Routing: Microgateway supports routing policies as below:
 	* Straight-through routing
 	* Content-based routing
 	* Context-based routing
 	* Out-bound Authentication - Transport
-* Traffic Monitoring - Microgateway supports all Traffic Monitoring policies except Service Result Cache. 
-Policies supported are 
-	* Log Invocation - In log invocation policy Microgateway supports the below properties. Store Request, Store Response, Compress Payload data, Log Generation Frequency and Destination (API Gateway and Elasticsearch). Microgateway does not support other destinations, only API Gateway and Elasticsearch is supported. 
+* Traffic Monitoring - Microgateway supports the following Traffic Monitoring policies:
+	* Log Invocation - In log invocation policy Microgateway supports the below properties. Store Request, Store Response, Compress Payload data, Log Generation Frequency and Destination (API Gateway and Elasticsearch).
 	* Monitor Service Level Agreement - This policy monitors a set of run-time performance conditions like availability, average response time, fault count, maximum response time, success count and total request count for one or more specified applications. This policy can be used to configure SLAs for each API or application or combination of both. If there is a breach in any of the parameters, an event notification (Monitor event) is sent to the configured destination. In a single policy, multiple action configurations behave as AND condition. The OR condition can be achieved by configuring multiple policies. Microgateway supports API Gateway and Elasticsearch as destinations. This policy action monitors run-time performance conditions within a single Microgateway instance. 
 	* Monitor Service Performance - This policy is like the Monitor Service Level Agreement policy but enforces the run-time performance conditions at the API level. Parameters like success count, fault count, and total request count are immediate monitoring parameters and are evaluated as soon as the limit is breached. For the rest of the aggregated monitoring parameters, the evaluation happens after the configured interval. If there is a breach in any of the parameters, an event notification (Monitor event) is sent to the configured destination. Destinations supported are API Gateway and Elasticsearch. In a single policy, multiple action configurations behave as AND condition. The OR condition can be achieved by configuring multiple policies. This policy only monitors run-time performance conditions within a single Microgateway instance. 
-	* Throttling Traffic Optimization - This policy limits the number of API invocations during a specific time interval. This policy only limits the number of API invocations within a single Microgateway instance. That is, the policy is not applicable across Microgateway instances holding the same APIs. Aggregation across multiple Microgateway instances is not supported. For destinations only API Gateway and Elasticsearch is supported.
+	* Throttling Traffic Optimization - This policy limits the number of API invocations during a specific time interval. This policy only limits the number of API invocations within a single Microgateway instance. For destinations API Gateway and Elasticsearch is supported.
 * Response Processing - Microgateway supports all the response processing policies except Invoke webMethods IS. Below policies are supported, 
 	* Response Transformation - Microgateway supports the following parameter types for the response transformation policy. response.payload, response.headers, response.statusCode and response.statusMessage
 	* Validate API Specification - This policy validates outgoing response against schema, content-types, and HTTP headers.
@@ -79,6 +78,8 @@ https://tech.forums.softwareag.com/t/microgateway-instance-based-provisioning/23
 https://tech.forums.softwareag.com/t/microgateway-configuration/239202
 https://tech.forums.softwareag.com/t/managing-microgateways/239203
 https://tech.forums.softwareag.com/t/microgateway-integration-with-service-registry-and-api-portal/237259
+
+Please also make sure to also check out our API Gateway and have a look at the [API Gateway GitHub repository](https://github.com/SoftwareAG/webmethods-api-gateway).
 
 -------------------------------------------
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
