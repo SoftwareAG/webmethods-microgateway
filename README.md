@@ -36,6 +36,86 @@ After the checkout, check the "How to use" page which lists the detailed steps f
 
 On-Premise Installation – Microgateway on-premise installation can be downloaded and installed from Software AG empower. link - https://empower.softwareag.com/
 
+Getting Started
+-------------------------
+
+Let's deploy the microgateway on an API to see how it is provisioned and how it works. This tutorial uses the the [Studio Ghibli API](https://github.com/janaipakos/ghibliapi) which lists information about the animes created by Studio Ghibli. You can try listing all their films with the below Postman call and its swagger definition can be found [here](https://github.com/SoftwareAG/webmethods-microgateway/blob/main/attachments/StudioGhibliAPIswagger.yaml).
+    
+    GET https://ghibliapi.herokuapp.com/films/
+
+And a specific film can be listed with its id, for example:
+    
+    GET https://ghibliapi.herokuapp.com/films/2baf70d1-42bb-4437-b551-e5fed5a87abe
+
+1. Login to docker hub and sign up for Software AG Microgateway Trial image using [this link](https://hub.docker.com/_/softwareag-microgateway-trial)
+
+2. Pull the microgateway image using the below command
+
+		docker pull store/softwareag/microgateway-trial:10.7
+
+3. Download [this archive](https://github.com/SoftwareAG/webmethods-microgateway/blob/main/attachments/StudioGhibliAPI.zip) to your computer and place it in ~/archive folder or another folder you prefer. It contains the archive files to define the API in the microgateway and apply a data masking policy for two different scopes
+
+4. Now, let's provision the microgateway container with the following command. (Make sure to use the folder you specified in the previous step instead of ~/archive before colon)
+    
+	    docker run -d -v ~/archive:/opt/softwareag/Microgateway/archives -p 9090:4485 -e mcgw_archive_file=/opt/softwareag/Microgateway/archives/StudioGhibliAPI.zip --name microgateway store/softwareag/microgateway-trial:10.7
+    
+    This command volume mounts the ~/archive folder to the /opt/softwareag/Microgateway/archives folder inside the container so that the archive file is accessible from inside the container, starts the gateway on port 9090, and tells it to use the given archive file. 
+
+5. Once the container is up and running, you can see the microgateway status and the assets controlled by it with the following curl commands
+
+		curl http://localhost:9090/rest/microgateway/status
+	
+    	curl http://localhost:9090/rest/microgateway/assets 
+
+6. Now let's see if the microgateway works. Let's invoke the microgateway endpoint with the following Postman call
+
+    	GET http://localhost:9090/gateway/StudioGhibliAPI/1.0/films/
+
+    You will see in the response body that the original title in Japanese spelling is masked by the microgateway
+
+7. Let's try making a call to a specific film, for example:
+
+    	GET http://localhost:9090/gateway/StudioGhibliAPI/1.0/films/2baf70d1-42bb-4437-b551-e5fed5a87abe
+
+    This time, you will see that the Japanese spelling of the title is displayed, but its spelling with Roman characters is masked. Using the microgateway you can define different scopes for resources and methods, and set different policies for each scope.
+
+To take advantage of all the policies that are supported by the microgateway, you can download and set up The API Gateway and download the asset archives from it. 
+ 
+ ### Using The Microgateway with the API Gateway ###
+
+Prerequisite: [Install API Gateway](https://github.com/SoftwareAG/webmethods-api-gateway), download the Petstore swagger from https://petstore.swagger.io/v2/swagger.json and create REST API in API Gateway called Petstore.
+
+1. Apply any of the supported policies by the microgateway on the Petstore API from the Gateway.
+
+2. Start Microgateway container using the below command
+
+		docker run -p 9090:4485 \ 
+		--env mcgw_api_gateway_url=http://sample.com:5555/rest/apigateway \ 
+		--env mcgw_api_gateway_user=Administrator \ 
+		--env mcgw_api_gateway_password=password \ 
+		--env mcgw_downloads_apis=Petstore \ 
+		--name microgateway store/softwareag/microgateway-trial:10.7
+
+    This command connects the microgateway to the API Gateway with the given username and password and pulls the Petstore API and its associated policies to the microgateway. 
+
+4. Below curl commands can be used to verify the status of Microgateway, its assets and the applied policies
+
+		curl http://localhost:9090/rest/microgateway/status 
+
+		curl http://localhost:9090/rest/microgateway/assets 
+
+5. You can invoke the microgateway endpoint of the API and see the result of the applied policies
+
+### Stopping the Microgateway Container ###
+
+Stop the Microgateway container using the docker stop command
+
+docker stop -t90 microgateway
+
+The docker stop is parameterized with the number of seconds required for a graceful shutdown of the Microgateway container.
+
+Note: The docker stop does not destroy the state of the Microgateway. On restarting the Docker container all assets that have been created or configured are available again.
+
 Policies in Microgateway
 -------------------------
 
