@@ -2,7 +2,7 @@
 
 The following picture describes the architecture how API Gateway and Microgateway is using OAuth2 authentication with an Authentication Server, in this case the keycloak server.
 
-![control flow scope](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/arc.jpg?raw=tue)
+![control flow scope](attachments/arc.jpg?raw=tue)
 
 
 1. Login as a registered user to keycloak and acquire a token (per REST request). It must know the user client ID and its client secret.
@@ -64,7 +64,8 @@ For selecting the confidential Access Type, you’ll find the Client Secret unde
 
 ![client sectet](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc5.jpg?raw=tue)
 
-
+\
+\
 ## API Gateway
 
 ### Create Authentication Server entry
