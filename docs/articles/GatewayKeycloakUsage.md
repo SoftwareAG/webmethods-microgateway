@@ -1,11 +1,12 @@
 # API Gateway and Microgateway with Keycloak Authentication Server
 
-The following picture describes the architecture how API Gateway and Microgateway is using OAuth2 authentication with an Authentication Server, in this case the keycloak server.
+This tutorial describes step by step how API Gateway / Microgateway uses an external Authentication Server for performing OAuth2 Authentication. The tutorial uses the Keycloak Authentication Server.\
+The following picture describes the control flow of a request which needs to authenticate:
 
 ![control flow scope](attachments/arc.jpg?raw=tue)
 
 
-1. Login as a registered user to keycloak and acquire a token (per REST request). It must know the user client ID and its client secret.
+1. Login as a registered user to Keycloak and acquire a token (per REST request). It must know the user client ID and its client secret.
 1. Keycloak delivers a token for the specified user client
 1. The user performs the request to API Gateway with the token inside the Authorization HTTP header with Bearer mode
 1. The OAuth2 policy of the API performs the introspection request to validate the client’s token 
@@ -14,7 +15,7 @@ The following picture describes the architecture how API Gateway and Microgatewa
 
 ## Keycloak Server
 
-To try a keycloak server it is convenient to establish him as a docker image. Just pull the server from DockerHub and start the container. The following examples uses “daefermion1” as host.
+To try a Keycloak server it is convenient to establish him as a docker image. Just pull the server from DockerHub and start the container. The following examples uses “daefermion1” as host.
 
 ```sh
 login to daefermion1
@@ -31,9 +32,9 @@ Create a realm with “Master -> Create realm”, for example “myrealm”. All
 #### Create User
 Create a user with its password, for example “myuser”.  Then select the Credentials tab and specify its password. Those users are necessary for acquiring tokens.
 
-![create realm](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc1.jpg?raw=tue)
+![create realm](attachments/kc1.jpg?raw=tue)
 
-![create user](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc2.jpg?raw=tue)
+![create user](attachments/kc2.jpg?raw=tue)
 
 To verify the login of the user, open keycloak’s account console:\
 http://daefermion1:8080/auth/realms/myrealm/account \
@@ -58,24 +59,24 @@ Clients are used for authentication requests to the server. The clients are iden
 
 For selecting the confidential Access Type, you’ll find the Client Secret under the Credentials tab.
 
-![create client](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc3.jpg?raw=tue)
+![create client](attachments/kc3.jpg?raw=tue)
 
-![create client](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc4.jpg?raw=tue)
+![create client](attachments/kc4.jpg?raw=tue)
 
-![client sectet](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/kc5.jpg?raw=tue)
+![client sectet](attachments/kc5.jpg?raw=tue)
 
 \
-\
+
 ## API Gateway
 
 ### Create Authentication Server entry
-Define the keycloak server as external authentication server:
+Define the Keycloak server as external authentication server:
 _Administration -->  Security  -->  JWT/OAuth_
 
-![API Gateway Auth Server sectet](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/ag1.jpg?raw=tue)
+![API Gateway Auth Server sectet](attachments/ag1.jpg?raw=tue)
 
 
-Take over the values, created at keycloak server into the external authentication server configuration.
+Take over the values, created at the Keycloak server into the external authentication server configuration.
 
 #### Introspection
 
@@ -84,7 +85,7 @@ Specify the created realm (“myrealm”) as URL in the “Issuer” field:\
 **http://daefermion1:8080/auth/realms/myrealm**
 
 _JWKS URI_\
-Specify the according keycloak URL for possible SSL usage:\
+Specify the according Keycloak URL for possible SSL usage:\
 **http://daefermion1:8080/auth/realms/myrealm/protocol/openid-connect/certs**
 
 _Introspection endpoint_\
@@ -92,7 +93,7 @@ The introspection endpoint is used by the application to verify the specified to
 **http://daefermion1:8080/auth/realms/myrealm/protocol/openid-connect/token/introspect**
 
 _Client ID_\
-Specify the Gateway client, present on keycloak together with its Client Secret.\
+Specify the Gateway client, present on Keycloak together with its Client Secret.\
 **apigw**
 
 #### Metadata
@@ -108,25 +109,25 @@ _Refresh Token URL_\
 **http://daefermion1:8080/auth/realms/myrealm/protocol/openid-connect/token**
 
 #### Scopes
-Scope: Define according scope names present on keycloak which will be mapped with the API having the OAuth2 policy. Ensure that the scope names are matching.
+Scope: Define according scope names present on Keycloak which will be mapped with the API having the OAuth2 policy. Ensure that the scope names are matching.
 
 ### Create API with OAuth2 policy
-![create api](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/ag2.jpg?raw=tue)
+![create api](attachments/ag2.jpg?raw=tue)
 
 ### Create Application
-Define an Application referring to keycloak Authentication server
-![create app](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/ag3.jpg?raw=tue)
+Define an Application referring to the Keycloak Authentication server
+![create app](attachments/ag3.jpg?raw=tue)
 
-Select the Authentication Server by its name and specify the User client name from the keycloak server as Client id. Specify the API, which has got the OAuth2 policy.
+Select the Authentication Server by its name and specify the User client name from the Keycloak server as Client id. Specify the API, which has got the OAuth2 policy.
 
 ### Define a scope
 Menu  -->  OAuth/OpenID
-![create scope](https://github.com/andreas-h-schmidt/samples/blob/main/pictures/ag4.jpg?raw=tue)
+![create scope](attachments/ag4.jpg?raw=tue)
 
 ## Requests in detail
 
 #### Try a Token
-At first let keycloak generate a token that can be used for the request to the API. As parameter the user client id with its secret together with the configured keycloak user and password is required for acquiring a token
+At first let Keycloak generate a token that can be used for the request to the API. As parameter the user client id with its secret together with the configured keycloak user and password is required for acquiring a token
 
 ```
 POST http://daefermion1:8080/auth/realms/myrealm/protocol/openid-connect/token
@@ -152,7 +153,7 @@ Authorization: Bearer <token>
 ```
 
 #### Try the introspection
-You may also try the introspection request and see how keycloak validates. API-Gateway resp. Microgateway issues this request to the keycloak authentication server. The resulting payload contains a JSON document with the validation result.
+You may also try the introspection request and see how Keycloak validates. API-Gateway resp. Microgateway issues this request to the Keycloak authentication server. The resulting payload contains a JSON document with the validation result.
 
 ```
 POST http://daefermion1:8080/auth/realms/myrealm/protocol/openid-connect/token/introspect
@@ -202,7 +203,7 @@ microgateway start -p 7070
 To completely decouple Microgateway from API Gateway at runtime, start Microgateway with prepared export data:
 
 Prepare steps:
-1. Export the mapped scope with the “Include Application” option. This ensures that all required assets are within the archive:
+1. Export the mapped scope with the “Include Application” option. This ensures that all required assets are within the archive:\
 _Administration  -->  OAuth/OpenID scopes  -->  keycloak-scope  -->  Export  -->  scopeArchive.zip_
 
 2. Download the API Gateway configuration to a yml file
