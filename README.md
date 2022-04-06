@@ -29,12 +29,12 @@ The Microgateway service runs within its own Java runtime environment and is con
 Get Microgateway
 --------------------
 
-Software AG Microgateway is part of webMethods API Management platform (link - https://www.softwareag.com/en_corporate/platform/integration-apis/api-management.html). webMethods API Gateway can be provisioned in multiple ways based on the users needs. 
+Software AG Microgateway is part of [webMethods API Management platform](https://www.softwareag.com/en_corporate/platform/integration-apis/api-management.html). webMethods API Gateway can be provisioned in multiple ways based on the users needs. 
 
-Docker - Microgateway docker image can be pulled from the docker hub. https://hub.docker.com/_/softwareag-microgateway-trial
+[Docker](https://hub.docker.com/_/softwareag-microgateway-trial) - Microgateway docker image can be pulled from the docker hub. 
 After the checkout, check the "How to use" page which lists the detailed steps for spinning up a container with the docker image. Please follow the steps and get your instance started in few minutes.
 
-On-Premise Installation – Microgateway on-premise installation can be downloaded and installed from Software AG empower. link - https://empower.softwareag.com/
+[On-Premise Installation](https://empower.softwareag.com/) – Microgateway on-premise installation can be downloaded and installed from Software AG empower. link - 
 
 Getting Started
 -------------------------
