@@ -31,7 +31,7 @@ Get Microgateway
 
 Software AG Microgateway is part of [webMethods API Management platform](https://www.softwareag.com/en_corporate/platform/integration-apis/api-management.html). webMethods API Gateway can be provisioned in multiple ways based on the users needs. 
 
-[Docker](https://hub.docker.com/_/softwareag-microgateway-trial) - Microgateway docker image can be pulled from the docker hub. 
+[Docker](https://containers.softwareag.com/products/microgateway) - Microgateway docker image can be pulled from containers.softwareag.com. A trial image is also available on [DockerHub](https://hub.docker.com/_/softwareag-microgateway-trial).
 After the checkout, check the "How to use" page which lists the detailed steps for spinning up a container with the docker image. Please follow the steps and get your instance started in few minutes.
 
 [On-Premise Installation](https://empower.softwareag.com/) – Microgateway on-premise installation can be downloaded and installed from Software AG empower. link - 
@@ -51,13 +51,13 @@ And a specific film can be listed with its id, for example:
 
 2. Pull the microgateway image using the below command
 
-		docker pull store/softwareag/microgateway-trial:10.7
+		docker pull store/softwareag/microgateway-trial:10.15
 
 3. Download [this archive](https://github.com/SoftwareAG/webmethods-microgateway/blob/main/attachments/StudioGhibliAPI.zip) to your computer and place it in ~/archive folder or another folder you prefer. It contains the archive files to define the API in the microgateway and apply a data masking policy for two different scopes
 
 4. Now, let's provision the microgateway container with the following command. (Make sure to use the folder you specified in the previous step instead of ~/archive before colon)
     
-	    docker run -d -v ~/archive:/opt/softwareag/Microgateway/archives -p 9090:4485 -e mcgw_archive_file=/opt/softwareag/Microgateway/archives/StudioGhibliAPI.zip --name microgateway store/softwareag/microgateway-trial:10.7
+	    docker run -d -v ~/archive:/opt/softwareag/Microgateway/archives -p 9090:4485 -e mcgw_archive_file=/opt/softwareag/Microgateway/archives/StudioGhibliAPI.zip --name microgateway store/softwareag/microgateway-trial:10.15
     
     This command volume mounts the ~/archive folder to the /opt/softwareag/Microgateway/archives folder inside the container so that the archive file is accessible from inside the container, starts the gateway on port 9090, and tells it to use the given archive file. 
 
@@ -94,7 +94,7 @@ Prerequisite: [Install API Gateway](https://github.com/SoftwareAG/webmethods-api
 		--env mcgw_api_gateway_user=Administrator \ 
 		--env mcgw_api_gateway_password=password \ 
 		--env mcgw_downloads_apis=Petstore \ 
-		--name microgateway store/softwareag/microgateway-trial:10.7
+		--name microgateway store/softwareag/microgateway-trial:10.15
 
     This command connects the microgateway to the API Gateway with the given username and password and pulls the Petstore API and its associated policies to the microgateway. 
 
